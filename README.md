@@ -29,8 +29,8 @@
 │   ├── references.bib      # BibTeX 参考文献库
 │   └── figures/            # 存放论文插图
 ├── notes/                  # 两人各自的原始思维轨迹与草稿
-│   ├── member_A_drafts.tex # 同学 A 的草稿
-│   └── member_B_drafts.tex # 同学 B 的草稿
+│   ├── member_A_drafts.md  # 同学 A 的草稿
+│   └── member_B_drafts.md  # 同学 B 的草稿
 └── ai_logs/                # AI 使用日志
 ```
 
