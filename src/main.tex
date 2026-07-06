@@ -8,8 +8,8 @@
 
 \geometry{left=2.5cm,right=2.5cm,top=3cm,bottom=3cm}
 
-\title{\textbf{这里是：测试标题}}
-\author{这里是作者}
+\title{\textbf{Optimal Resizable Arrays 论文评述}}
+\author{张艺博 \and 徐黄浩}
 \date{\today}
 
 \begin{document}
@@ -17,18 +17,32 @@
 \maketitle
 
 \begin{abstract}
-这里是摘要
+本文评述 Robert E. Tarjan 与 Uri Zwick 的论文 \emph{Optimal resizable arrays}。该论文研究如何在保持数组随机访问效率的同时，降低动态扩缩容带来的额外空间开销。本文将围绕问题模型、相关工作、核心数据结构、复杂度证明以及方法局限展开分析。
 \end{abstract}
 
 \newpage
 \tableofcontents
 \newpage
 
-\section{第一章}
-测试内容
+\section{引言与论文定位}
+本节将说明可变长数组问题的背景、该问题在数据结构设计中的重要性，以及本文评述的主要问题意识。
 
-\subsection{子标题}
+\section{问题定义与理论模型}
+本节将整理论文中的模型假设、操作接口、时间复杂度目标和空间复杂度目标。
 
-\section{第二章}
+\section{文献调研与相关工作}
+本节将讨论传统倍增数组、早期 resizable array 结构以及 Tarjan 和 Zwick 工作与已有研究之间的关系。
+
+\section{本文核心方法}
+本节将解释论文提出的数据结构设计、块组织方式、索引策略以及扩缩容过程。
+
+\section{正确性证明与理论分析}
+本节将分析随机访问、插入、删除操作的复杂度，并讨论空间开销界的证明思路。
+
+\section{技术直觉与方法评价}
+本节将从实现直觉、理论贡献、局限性和后续影响几个角度评价该论文。
+
+\section{总结}
+本节将总结本文评述的主要结论。
 
 \end{document}
