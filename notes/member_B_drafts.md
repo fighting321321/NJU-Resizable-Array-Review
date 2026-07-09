@@ -32,6 +32,12 @@
 
 这部分还需要后续人工精修，尤其是术语统一、与第 1 章的衔接，以及是否需要增加原论文 Definition 2.1 的引用说明。
 
+### 2026-07-09：第 3 章下界背景初稿
+
+今天将论文第 4 节中 Brodnik et al. 的 $N+\Omega(\sqrt{N})$ 空间下界，以及 Tarjan/Zwick 推出的 $s(N)t(N)=\Omega(N)$ 乘积下界，整理进 `src/main.tex` 的“文献调研与相关工作”章节。
+
+这一段目前的定位是相关工作和论文动机：它解释为什么已有 $N+O(\sqrt{N})$ 结构看似遇到瓶颈，以及 Tarjan/Zwick 为什么要把空间拆成 storing/accessing space 和 temporary resizing space 两类。第 5 章后续再写 growth game、$\Omega(r)$ 均摊下界和更正式的证明分析。
+
 ## 四、近期优先任务
 
 ### 任务 1：精修第 2 章“问题定义与理论模型”
@@ -57,6 +63,8 @@
 - 动态序列、tiered vectors、fast dynamic arrays 等相关研究。
 
 这一部分的目标不是堆引用，而是解释 Tarjan/Zwick 为什么要重新区分 “storing/accessing space” 和 “temporary resizing space”。
+
+当前进度：已先写入 Brodnik et al. 的 $N+\Omega(\sqrt{N})$ 下界和 Tarjan/Zwick 的 $s(N)t(N)=\Omega(N)$ 下界视角，后续还需要补 Sitarski、HAT 和 succinct data structures 的引用与背景。
 
 ### 任务 3：解释论文的关键新视角
 
@@ -120,5 +128,6 @@ $$
 近期最小可交付目标：
 
 1. 先完成第 2 章问题模型草稿；（已完成初稿）
-2. 再完成第 5 章下界证明的阅读笔记；
-3. 最后补充关键参考文献，并把正文引用打通。
+2. 再完成第 3 章下界背景和相关工作初稿；（已开始）
+3. 完成第 5 章 growth game 与均摊下界的阅读笔记；
+4. 最后补充关键参考文献，并把正文引用打通。
