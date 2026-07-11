@@ -1,7 +1,6 @@
 # 论文评述：最优可变长数组
 
-本仓库包含对理论计算机科学顶级会议会议论文的深度评审与学术评述（Review）：
-**"Optimal resizable arrays"** (Robert E. Tarjan and Uri Zwick, 2023)。
+本仓库包含对理论计算机科学论文 **"Optimal resizable arrays"**（Robert E. Tarjan 和 Uri Zwick，2023）的阅读、分析与学术评述（Review）。该工作的初步版本发表于 SOSA 2023，当前项目主要依据 arXiv 完整版本开展阅读和写作。
 
 本项目为南京大学《高级数据结构》课程期末大作业。
 
@@ -13,7 +12,7 @@
 
 成员B：徐黄浩
 
-具体分工见 ./Plan_Table.md
+具体分工与当前进度见 [`Plan_Table.md`](./Plan_Table.md)。
 
 ---
 
@@ -23,9 +22,12 @@
 
 ```text
 ├── README.md               # 项目说明文档（当前文件）
+├── Plan_Table.md           # 论文大纲、成员分工与进度表
 ├── .gitignore              # Git 忽略规则文件
+├── paper.pdf               # 评述对象的论文原文
 ├── src/                    # 核心 LaTeX 源码生产区
-│   ├── main.tex            # Review 论文主文件（整体论文框架与排版）
+│   ├── main.tex            # Review 论文主文件（成员分区草稿与整体排版）
+│   ├── main.pdf            # 当前编译生成的 Review PDF
 │   ├── references.bib      # BibTeX 参考文献库
 │   └── figures/            # 存放论文插图
 ├── notes/                  # 两人各自的原始思维轨迹与草稿
@@ -43,16 +45,16 @@
 ## 工作流规范与学术诚信声明
 
 
-1. **独立草稿阶段（Notes 区）：** 在将任何内容正式合并进主论文（`src/main.tex`）之前，所有原始想法、数学推导草稿、理解和伪代码，都会提交至 `notes/` 目录下各自的文件中。
-2. **异步交叉评审（PR 机制）：** 核心学术观点和公式在合并入 `src/main.tex` 时，通过 **Pull Request (PR)** 进行。
-3. **AI 工具使用：** AI 仅用于答疑复杂引理或查询文献。所有 AI 记录会导出为 Markdown 并同步至 `ai_logs/` 文件夹，确保透明。**最终论文中不包含 AI 代写的文本。**
+1. **成员分区写作：** 当前阶段两位成员直接在 `src/main.tex` 中各自标明的成员小节内独立撰写，暂不提前统一写作风格。阅读笔记、推导过程和未定稿材料分别保存在 `notes/A_notes/`、`notes/B_notes/` 及对应成员草稿中。
+2. **最终整合与交叉评审：** 各自负责部分形成初稿后，再统一处理章节衔接、术语、公式记号和重复内容。核心学术修改及最终合并通过 Pull Request（PR）进行交叉审阅并保留版本记录。
+3. **AI 工具使用：** AI 用于辅助理解论文、梳理写作结构、核查公式与引用以及改进表达。相关使用过程以 Markdown 形式记录在 `ai_logs/` 中；所有写入正文的技术结论均需由成员结合论文原文人工核验。
 
 ---
 
 ## 评审文献详细信息
 * **论文题目：** Optimal Resizable Arrays (最优可变长数组)
 * **论文作者：** Robert E. Tarjan, Uri Zwick
-* **发表形式：** arXiv preprint, arXiv:2211.11009, 2023
-* **论文链接：** https://arxiv.org/abs/2211.11009
+* **发表形式：** SOSA 2023 初步版本；arXiv:2211.11009v2，2023
+* **论文链接：** [https://arxiv.org/abs/2211.11009](https://arxiv.org/abs/2211.11009)
 * **选题来源：** 课程大作业论文列表中的第 6 篇 "Optimal resizable arrays"
 
