@@ -63,6 +63,18 @@
 
 本次正文暂不展开 credit 分析、growth game 和 $\Omega(r)$ 下界，以免与第 5 章重复。下一步应进入第 5 章下界分析的精读和笔记阶段。
 
+### 2026-07-12：第 5 章 growth game 与均摊下界阅读
+
+今天阅读并整理了论文第 8、9 节，同时回看第 7 节对 standard implementation 的定义。详细技术笔记已写入 `notes/B_notes/paper_reading.md`，目前已经理清第 5 章成员 B 部分需要使用的证明链：
+
+1. standard implementation 将真实 `Grow` 操作限制为申请新块、复制旧块并释放旧块；
+2. $(N,k,\ell)$-growth game 用有限数量的子数组和空闲位置抽象块合并过程；
+3. Lemma 8.2 说明空闲位置可以约化为成组插入；
+4. Theorem 8.6 和 Corollary 8.13 用二项式阈值给出游戏的精确代价及可用均摊下界；
+5. 第 9 节把额外空间为 $O(rN^{1/r})$ 的标准结构映射到扩展 growth game，并通过令 $n=\Theta(r)$ 推出 `Grow` 的 $\Omega(r)$ 均摊下界。
+
+本次只完成阅读和证明框架整理，尚未把内容写入 `src/main.tex`。下一步应根据这份笔记撰写第 5 章“成员 B：下界分析”初稿，并控制 Theorem 8.6 的证明细节，重点解释它如何服务于 Theorem 9.1。
+
 ## 四、近期优先任务
 
 ### 任务 1：精修第 2 章“问题定义与理论模型”
