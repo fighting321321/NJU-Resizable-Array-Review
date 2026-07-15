@@ -1,0 +1,27 @@
+\documentclass[12pt,tikz,border=2pt]{standalone}
+\usepackage{ctex}
+\usepackage{amsmath,amssymb}
+\usetikzlibrary{arrows.meta}
+
+\begin{document}
+\begin{tikzpicture}[font=\small,>=Latex]
+    \node[anchor=east,font=\bfseries] at (-0.3,1.5) {稳定状态};
+    \draw[fill=blue!15] (0,1.05) rectangle (7.0,1.95);
+    \node at (3.5,1.5) {$N$ 个数组元素};
+    \draw[fill=cyan!30] (7.0,1.05) rectangle (9.5,1.95);
+    \node[align=center,font=\scriptsize] at (8.25,1.5)
+        {稳定额外空间\\$s(N)$};
+    \draw[<->] (0,2.2) -- node[above] {$N+s(N)$} (9.5,2.2);
+
+    \node[anchor=east,font=\bfseries] at (-0.3,-1.15) {扩缩容中};
+    \draw[fill=blue!15] (0,-1.6) rectangle (7.4,-0.7);
+    \node at (3.7,-1.15) {原有表示与有效元素};
+    \draw[fill=orange!35] (7.4,-1.6) rectangle (10.8,-0.7);
+    \node[align=center,font=\scriptsize] at (9.1,-1.15)
+        {临时额外空间\\$t(N)$};
+    \draw[<->] (0,-0.45) -- node[above] {$N+t(N)$} (10.8,-0.45);
+
+    \node[font=\scriptsize,text=gray!70!black] at (5.4,-2.05)
+        {矩形长度仅表示两类空间的组成，不按实际比例绘制。};
+\end{tikzpicture}
+\end{document}

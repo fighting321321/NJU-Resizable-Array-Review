@@ -1,0 +1,41 @@
+\documentclass[12pt,tikz,border=2pt]{standalone}
+\usepackage{ctex}
+\usepackage{amsmath,amssymb}
+\usetikzlibrary{arrows.meta}
+
+\begin{document}
+\begin{tikzpicture}[font=\small,>=Latex]
+    \tikzset{
+        gameblock/.style={draw,rounded corners=2pt,minimum width=1.65cm,
+            minimum height=1.0cm,align=center,inner sep=2pt},
+        moved/.style={gameblock,fill=orange!25},
+        kept/.style={gameblock,fill=blue!15}
+    }
+
+    \node[anchor=east,font=\bfseries] at (0.8,1.75) {插入前};
+    \node[moved] (a1-before) at (2.0,1.75) {$A_1$\\$a_1$ 个元素};
+    \node[moved] (a2-before) at (4.0,1.75) {$A_2$\\$a_2$ 个元素};
+    \node[kept] (a3-before) at (6.0,1.75) {$A_3$\\保持不变};
+    \node[draw,circle,fill=green!20,minimum size=0.75cm]
+        (new) at (8.0,1.75) {新};
+
+    \node[anchor=east,font=\bfseries] at (0.8,-0.65) {插入后};
+    \node[gameblock,dashed,text=gray,minimum height=1.35cm]
+        at (2.0,-0.65) {$A_1$\\空};
+    \node[moved,minimum width=1.85cm,minimum height=1.35cm]
+        (a2-after) at (4.0,-0.65)
+        {$A_2$\\[-1pt]{\scriptsize $a_1+a_2+1$}\\[-1pt]{\scriptsize 个元素}};
+    \node[kept,minimum height=1.35cm] at (6.0,-0.65)
+        {$A_3$\\保持不变};
+    \node[gameblock,fill=gray!10,minimum height=1.35cm] at (8.0,-0.65)
+        {本次代价\\$1+a_1+a_2$};
+
+    \draw[->,orange!80!black] (a1-before.south)
+        to[bend right=18] (3.55,-0.1);
+    \draw[->,orange!80!black] (a2-before.south) -- (4.0,-0.1);
+    \draw[->,green!50!black] (new.south)
+        to[bend left=24] (4.45,-0.1);
+    \node[fill=white,inner sep=3pt] at (4.0,0.58)
+        {选择 $i=2$ 并合并};
+\end{tikzpicture}
+\end{document}

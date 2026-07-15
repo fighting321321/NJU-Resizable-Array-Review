@@ -1,0 +1,48 @@
+\documentclass[12pt,tikz,border=2pt]{standalone}
+\usepackage{ctex}
+\usepackage{amsmath,amssymb}
+\usetikzlibrary{arrows.meta}
+
+\begin{document}
+\begin{tikzpicture}[font=\small,>=Latex]
+    \tikzset{
+        index/.style={draw,rounded corners=2pt,fill=gray!15,
+            minimum width=2.0cm,minimum height=0.72cm},
+        large/.style={draw,fill=blue!15,
+            minimum width=1.55cm,minimum height=0.78cm},
+        small/.style={draw,fill=cyan!25,
+            minimum width=0.72cm,minimum height=0.72cm}
+    }
+
+    \node[index] (large-index) at (0.8,2.6) {大块索引};
+    \node[large] (l1) at (3.0,2.6) {$B^2$};
+    \node[large] (l2) at (4.9,2.6) {$B^2$};
+    \node at (6.25,2.6) {$\cdots$};
+    \node[large] (l3) at (7.6,2.6) {$B^2$};
+    \node[anchor=west] at (8.55,2.6) {均为满块};
+    \draw[->] (large-index.east) -- (l1.west);
+
+    \node[index] (small-index) at (0.8,1.25) {小块索引};
+    \node[small] (s1) at (2.7,1.25) {$B$};
+    \node[small] (s2) at (3.55,1.25) {$B$};
+    \node[small] (s3) at (4.4,1.25) {$B$};
+    \node at (5.15,1.25) {$\cdots$};
+    \fill[cyan!25] (5.59,0.89) rectangle (5.98,1.61);
+    \draw (5.59,0.89) rectangle (6.31,1.61);
+    \node at (5.95,1.25) {$B$};
+    \node[anchor=west,align=left] at (6.55,1.25)
+        {至多 $2B$ 个块\\至多一个未填满};
+    \draw[->] (small-index.east) -- (s1.west);
+
+    \node[anchor=east,font=\bfseries] at (1.85,-0.1) {触发合并};
+    \node[small] (m1) at (2.7,-0.1) {$B$};
+    \node[small] (m2) at (3.55,-0.1) {$B$};
+    \node at (4.3,-0.1) {$\cdots$};
+    \node[small] (m3) at (5.05,-0.1) {$B$};
+    \node[font=\scriptsize] at (3.9,-0.72) {$B$ 个满小块};
+    \draw[->,very thick,orange!80!black] (5.55,-0.1)
+        -- node[above] {复制} (7.0,-0.1);
+    \node[large,fill=orange!30,minimum width=2.1cm] at (8.15,-0.1)
+        {临时新块 $B^2$};
+\end{tikzpicture}
+\end{document}
