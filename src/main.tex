@@ -167,6 +167,8 @@
 
 本文中使用的主要是第一种方法。
 
+此外，本文也使用了记账法，记账法的原理是分配 credit 并记录每次消耗，后文会详细阐述。
+
 \subsection{传统工作}
 首先介绍论文中提到的相关工作
 
@@ -453,7 +455,148 @@ Theorem 7.3\cite{tarjan2023optimalresizablearrays} 所处理的参数范围为
 
 \subsection{成员 A：上界分析}
 
-\emph{待补充。}
+
+
+\subsubsection{上界分析：一般$r$构造的均摊代价}
+
+
+对于一般 $r$ 的构造：
+$$
+\bigl(O(rN^{1/r}),\,O(N^{1-1/r})\bigr)\text{-implementation},
+$$
+证明 grow 和 shrink 的均摊成本均为 $O(r)$。
+
+这里的一般构造指的是（实际上上文已经阐明，这里简单提及）：令 $B\approx N^{1/r}$，数据被存放在大小为
+$$
+B,\ B^2,\ \ldots,\ B^{r-1}
+$$
+的多层 blocks 中。每一层最多维护 $2B$ 个 blocks。于是，从空间角度看，每一层的 index block 大小为 $O(B)$，一共有 $r-1$ 层，因此稳定状态下的额外存储空间为
+$$
+O(rB)=O(rN^{1/r}).
+$$
+另一方面，resize 过程中最大的临时申请发生在分配一个大小为 $B^{r-1}$ 的 block 时，因此临时空间为
+$$
+O(B^{r-1})=O(N^{1-1/r}).
+$$
+所以该结构首先满足
+$$
+\bigl(O(rN^{1/r}),\,O(N^{1-1/r})\bigr)\text{-implementation}
+$$
+的空间要求。
+
+下面主要说明 grow/shrink 的均摊代价。前面的构造其实已经隐含了这个证明思想：因为最多有 $r-1$ 层，所以对于任意一个元素，它最坏也只会在这些层之间被移动 $O(r)$ 次。换句话说，从直观上看，总的元素移动代价至多为 $O(Nr)$，而因为共有 $N$ 个元素，均摊到每个元素上就是 $O(r)$。这是一个直觉证明，更加严谨的证明使用了记账法。
+
+\paragraph{Grow 的均摊代价。}
+论文将一次 Grow 或 Shrink 的成本定义为 item assignments 的次数。对于 Grow 来说，普通插入一个新元素的成本为 $1$；如果触发 Combine-Blocks，则还要计算合并过程中元素复制的成本。
+
+作者为 level $i$ 中的每个元素分配
+$$
+r-i
+$$
+个 credit。这里 level $i$ 指的是元素当前位于大小为 $B^i$ 的 block 中。新插入的元素总是先进入 level $1$，因此初始获得
+$$
+r-1
+$$
+个 credit。当某个元素因为 Combine-Blocks 从 level $i$ 被复制到 level $i+1$ 时，它的 credit 从
+$$
+r-i
+$$
+变为
+$$
+r-(i+1),
+$$
+正好减少 $1$，而这个减少的 credit 就用来支付这一次元素复制的代价。
+
+因此，每个元素从 level $1$ 一路移动到更高层的过程中，credit 始终非负，且每一次复制都由 credit 支付。新插入元素时需要额外分配 $r-1$ 个 credit，再加上插入本身的常数成本，所以 Grow 的均摊成本为
+$$
+O(r).
+$$
+这也对应了论文中“Combine-Blocks 的摊还成本为 $0$”的结论。
+
+\paragraph{Shrink 的均摊代价。}
+Shrink 的分析比 Grow 更细一些，因为 Shrink 并不是简单地反向使用上面的元素 credit。我们先回忆一下 shrink 的操作。Shrink 始终删除数组末尾元素，也就是最新一段中最后的元素。如果最后一个 size-$B$ block 中还有元素，那么直接删除即可，不需要复制元素，因此 item assignment 成本为 $0$。但是如果当前没有 size-$B$ block，也就是 $n_1=0$，就必须调用 Split-Blocks，从更高层拆出一些低层 blocks，然后再删除末尾元素。
+
+因此 Shrink 分为两种情况：
+
+
+case 1: 最后一个 size-B block 还有元素，直接删除，代价为 0;
+
+
+
+case 2: 没有 size-B block，需要进行一次 Split-Blocks。
+
+
+设这次 Split-Blocks 发生在 level $k$，也就是当前最小的非空层为 $k$。此时算法会将最后一个大小为 $B^k$ 的 block 拆开。这个 size-$B^k$ block 被拆成
+
+拆分后，levels $1$ 到 $k-1$ 中一共正好包含 $B^k$ 个元素。size-$B^k$ block 会被拆成更低层的 blocks：对于 level $k-1,k-2,\ldots,2$，每一层各生成 $B-1$ 个对应大小的 blocks，也就是 $B-1$ 个 size-$B^{k-1}$ blocks，$B-1$ 个 size-$B^{k-2}$ blocks，依次直到 $B-1$ 个 size-$B^2$ blocks；最后在 level $1$ 生成 $B$ 个 size-$B$ blocks。也就是说，一次 split 大致可以理解为把一个 $B^k$ 级别的大块向下拆成若干层小块，从而重新暴露出可以继续 shrink 的 size-$B$ blocks。
+关键观察是：两次同级别的 level $k$ split 之间，至少要经历 $B^k$ 次 Shrink。原因是，一次 level $k$ split 之后，低层 $1,\ldots,k-1$ 中已经有 $B^k$ 个元素；如果下一次还想再次发生 level $k$ split，就必须先把这些低层元素全部删掉。因此，中间至少发生 $B^k$ 次 Shrink。论文还指出，如果前一次不是同级 split，而是一次 Combine-Blocks 创建了一个新的 size-$B^k$ block，那么在该 combine 之后，levels $1$ 到 $k-1$ 中也至少有 $B^k$ 个元素，所以到下一次 level $k$ split 之间同样至少有 $B^k$ 次 Shrink。
+
+为了支付 Split-Blocks 的成本，作者给每一次 Shrink 操作额外分配 level credit：每次 Shrink 都给每一层增加 $3$ 个 credit。因此，如果一次 level $k$ split 发生，那么在这之前 level $k$ 至少已经积累了
+$$
+3B^k
+$$
+个 credit。
+
+以上是shrink获得的，现在分析成本，成本包括两部分：
+
+第一部分是实际复制成本。拆开一个 size-$B^k$ block，需要复制其中的 $B^k$ 个元素，因此实际 item assignment 成本为
+$$
+B^k.
+$$
+
+第二部分是给移动后的元素补充 credit。因为 Split-Blocks 会把原来在 level $k$ 的元素移动到更低层，而低层元素未来可能还会被向高层复制，所以需要补充元素 credit。若一个元素从 level $k$ 被移动到 level $i$，其中 $i<k$，那么它需要额外补充的 credit 数量为
+$$
+k-i.
+$$
+根据 split 后各层元素的分布，需要补充的 credit 总量为
+$$
+B(k-1)+(B-1)\sum_{i=1}^{k-1}(k-i)B^i.
+$$
+其中第一项和求和式共同对应 level $1$ 中的 $B^2$ 个元素，其余项对应 level $2$ 到 level $k-1$ 中的元素。
+
+接下来对该式进行上界估计：
+$$
+B(k-1)+(B-1)\sum_{i=1}^{k-1}(k-i)B^i
+\le
+B\sum_{i=1}^{k-1}(k-i)B^i.
+$$
+令 $j=k-i$，则有
+$$
+B\sum_{i=1}^{k-1}(k-i)B^i
+=
+B\sum_{j=1}^{k-1}jB^{k-j}
+\le
+B^{k+1}\sum_{j\ge 1}jB^{-j}.
+$$
+利用无穷级数
+$$
+\sum_{j\ge 1}jB^{-j}=\frac{B}{(B-1)^2},
+$$
+可得
+$$
+B^{k+1}\sum_{j\ge 1}jB^{-j}
+=
+\frac{B^{k+2}}{(B-1)^2}
+\le
+2B^k,
+$$
+其中最后一步使用了 $B\ge 4$。
+
+因此，一次 level $k$ 的 Split-Blocks 所需支付的总成本不超过
+$$
+B^k+2B^k=3B^k.
+$$
+而在该 split 发生之前，level $k$ 已经至少积累了 $3B^k$ 个 credit，所以这些 credit 足以支付本次 split 的实际复制成本以及移动元素后的 credit 补充。因此，Split-Blocks 的摊还成本为 $0$。
+
+
+
+\paragraph{Rebuild 的成本。}
+最后还需要考虑 Rebuild。Grow 或 Shrink 都可能导致参数 $B$ 不再适合当前的 $N$，因此算法会在 $N=B^r$ 时将 $B$ 翻倍，或在 $N=(B/4)^r$ 时将 $B$ 减半并重建结构。论文中同样使用 credit 支付 Rebuild 成本：每次 Grow 或 Shrink 再额外给整个数据结构增加 $2r$ 个 credit。这样虽然会把每次操作的均摊成本再增加 $O(r)$，但仍然保持在 $O(r)$ 范围内。
+
+当 Rebuild 发生时，两次 Rebuild 之间已经经过了线性数量的 Grow 或 Shrink 操作，因此数据结构已经积累了足够多的 credit。Rebuild 的实际成本为 $N$，而重建后为所有元素重新分配 credit 的总量至多为 $(r-1)N$，因此积累的全局 credit 足以支付 Rebuild 的成本和重新分配 credit 的成本。所以 Rebuild 的摊还成本也可以视为 $0$。
+
+所以，只有 Grow 和 Shrink均摊成本为 $O(r)$ （相当于主动增加 r 个 credit） 其他操作完全可以由这些支付。
+
 
 
 \subsection{成员 B：下界分析}
@@ -572,7 +715,7 @@ Theorem 8.6 精确求解了 $\ell=0$ 的游戏\cite{tarjan2023optimalresizablear
 
 \subsection{成员 A：技术直觉与示例解释}
 
-\emph{待补充。}
+
 
 
 \subsection{成员 B：创新点、局限性与后续影响}
