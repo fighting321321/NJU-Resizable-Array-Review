@@ -6,6 +6,7 @@
 \usepackage{geometry}
 \usepackage{booktabs}
 \usepackage{graphicx}
+\usepackage{placeins}
 
 \geometry{left=2.5cm,right=2.5cm,top=3cm,bottom=3cm}
 
@@ -857,9 +858,23 @@ $s(N)t(N)\ge N$。当 $s(N)=t(N)=\sqrt N$ 时，正好回到 Brodnik 等人的�
 
 \subsubsection{示例解释}
 
-由于本部分插入图片和解释过多，不宜在$latex$展示，所以请见附录，附录文档有详细的、直观的数据结构展示与思想解释。附录文档在 notes/A\_notes/直观演示.md
+下面用 $r=4$、$B=3$ 的小规模状态说明一次合并。这里选择 $B=3$ 是为了让图中块数和元素数量保持可读；数据结构的操作规则不变，而 Lemma 6.3 中用于估计 credit 的常数不等式仍按正式证明所要求的 $B\geq 4$ 处理\cite{tarjan2023optimalresizablearrays}。
+
+在插入元素 $19$ 之前，level $1$ 中已有 $2B=6$ 个填满的 size-$B$ blocks，依次存放元素 $1$ 到 $18$。此时继续执行 \texttt{Grow(19)} 会触发 \texttt{Combine-Blocks}：首先把最旧的前 $B=3$ 个小块，即元素 $1$ 到 $9$，复制到一个新的 size-$B^2$ block；随后释放这三个旧块，并把仍存放元素 $10$ 到 $18$ 的三个小块保留在 level $1$；最后申请新的 size-$B$ 尾块，将元素 $19$ 放入其中。操作结束后的状态如图~\ref{fig:r4-grow-example} 所示。
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.96\textwidth]{figures/r4-grow-example/grow-first-merge.png}
+    \caption{$r=4$、$B=3$ 时执行 \texttt{Grow(19)} 后的分层状态。元素 $1$--$9$ 已合并到 level $2$，较新的元素仍保留在 level $1$。}
+    \label{fig:r4-grow-example}
+\end{figure}
+
+这个例子同时解释了为何结构总是合并较旧的块。数组只在末尾更新，元素 $1$ 到 $9$ 短期内不会被 \texttt{Shrink} 删除，适合放入更大的块以减少指针开销；元素 $10$ 到 $19$ 更接近数组末尾，继续留在小块中可以降低后续尾部变化的重组成本。合并过程中，新 size-$B^2$ block 与被复制的旧块短暂共存，其 $B^2$ 空间计入扩缩容临时空间；操作结束并释放旧块后，长期保留的主要冗余重新变为各层索引和少量尾部空位。
+
+\texttt{Shrink} 使用相反方向的结构变化，但并不是每删除一个元素就立即撤销合并。当 level $1$ 中已经没有 size-$B$ block 可供删除时，算法寻找最低的非空高层，并对该层最后一个块执行 \texttt{Split-Blocks}。例如，一个 size-$B^2$ block 会被拆成 $B$ 个 size-$B$ blocks，使末尾元素重新暴露在最低层。由于一次合并后 level $1$ 仍保留 $B$ 个满块，在再次触发同级拆分之前必须先经过至少 $B^2$ 次 \texttt{Shrink}；这个缓冲区正是前文 credit 分析能够摊还复制成本的直观原因。
 
 
+\FloatBarrier
 \subsection{成员 B：创新点、局限性与后续影响}
 
 前文已经分别介绍了论文的分层构造和下界证明。本节不再重复具体操作，而是从模型、理论完整性和实际可实现性三个角度评价其贡献与边界\cite{tarjan2023optimalresizablearrays}。
