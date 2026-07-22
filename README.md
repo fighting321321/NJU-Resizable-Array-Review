@@ -37,8 +37,7 @@
 │   ├── member_B_drafts.md
 │   ├── A_notes/
 │   └── B_notes/
-├── ai_logs/                 # AI 辅助使用记录
-└── docs/superpowers/        # 统一修改的设计与执行记录
+└── ai_logs/                 # AI 辅助使用记录
 ```
 
 ---

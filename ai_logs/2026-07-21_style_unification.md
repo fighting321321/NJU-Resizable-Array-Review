@@ -28,7 +28,6 @@ AI 在本次任务中承担语言归纳、结构建议、一致性扫描和编�
 
 - 统一后的正文源文件：`src/main.tex`
 - 最新编译文档：`src/main.pdf`
-- 语言与结构统一规范：`docs/superpowers/specs/2026-07-21-body-style-unification-design.md`
-- 实施计划：`docs/superpowers/plans/2026-07-21-body-style-unification.md`
+- 语言与结构统一过程：由本日志及对应 Git 提交历史保留
 
 提交前需要确认正文中不再残留成员分区标题或草稿式占位表达，所有引用均可解析，图表没有越界或重叠，并确保 `src/main.pdf` 与当前 LaTeX 源码一致。
