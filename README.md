@@ -1,10 +1,10 @@
 # 论文评述：最优可变长数组
 
-本仓库包含对理论计算机科学论文 **"Optimal resizable arrays"**（Robert E. Tarjan 和 Uri Zwick，2023）的阅读、分析与学术评述（Review）。该工作的初步版本发表于 SOSA 2023，当前项目主要依据 arXiv 完整版本开展阅读和写作。
+本仓库包含对理论计算机科学论文 **"Optimal resizable arrays"**（Robert E. Tarjan 和 Uri Zwick）的阅读、分析与学术评述（Review）。该工作的初步版本发表于 SOSA 2023，完整版本于 2024 年发表于 *SIAM Journal on Computing*。本项目主要依据 arXiv 完整版本开展阅读和写作。
 
 本项目为南京大学《高级数据结构》课程期末大作业。
 
-当前正文已经完成第一轮统一整合：七章主体内容、图示、参考文献和总结均已写入 `src/main.tex`，成员分区标签、术语、公式记号和语言风格已经统一。项目现处于后续文献补充、技术交叉审阅和最终交付阶段。
+当前正文和过程材料已经完成最终整合：七章主体内容、图示、参考文献和总结均已写入 `src/main.tex`，成员分区标签、术语、公式记号和语言风格已经统一。技术核查、交叉审阅和 PDF 编译检查均在同一分支上完成，项目现已进入最终提交状态。
 
 ---
 
@@ -37,13 +37,12 @@
 │   ├── member_B_drafts.md
 │   ├── A_notes/
 │   └── B_notes/
-├── ai_logs/                 # AI 辅助使用记录
-└── docs/superpowers/        # 统一修改的设计与执行记录
+└── ai_logs/                 # AI 辅助使用记录
 ```
 
 ---
 
-## 当前进度与后续任务
+## 当前进度与交付状态
 
 具体任务状态见 [`Plan_Table.md`](./Plan_Table.md)。
 
@@ -52,7 +51,7 @@
 ## 工作流规范与学术诚信声明
 
 1. **贡献记录：** 前期按照成员分工独立阅读和撰写，原始材料保存在 `notes/`，主要贡献和当前状态记录在 `Plan_Table.md`。
-2. **交叉评审：** 语言和结构统一不代替技术审阅。
+2. **交叉评审：** 两位成员在同一分支上完成正文整合与技术核查，相关修改保留在 Git 提交历史中。
 3. **AI 工具使用：** AI 用于辅助理解论文、梳理写作结构、核查公式与引用以及改进表达。相关使用过程以 Markdown 形式记录在 `ai_logs/` 中；所有写入正文的技术结论均需由成员结合论文原文人工核验。
 
 过程材料与计划表中的记录项对应如下：
@@ -63,7 +62,7 @@
 | 阅读笔记与论文批注 | `notes/A_notes/`、`notes/B_notes/` |
 | 文献调研记录 | `notes/`、`src/references.bib` |
 | 图表与推导过程 | `src/figures/`、`notes/A_notes/assets/` |
-| 交叉审阅记录 | Git 提交历史与最终 PR |
+| 交叉审阅记录 | 同一分支上的 Git 提交历史 |
 | AI 使用记录 | `ai_logs/` |
 
 ---
@@ -71,7 +70,7 @@
 ## 评审文献详细信息
 * **论文题目：** Optimal Resizable Arrays (最优可变长数组)
 * **论文作者：** Robert E. Tarjan, Uri Zwick
-* **发表形式：** SOSA 2023 初步版本；arXiv:2211.11009v2，2023
-* **论文链接：** [https://arxiv.org/abs/2211.11009](https://arxiv.org/abs/2211.11009)
+* **发表形式：** SOSA 2023 初步版本；*SIAM Journal on Computing*，53(5):1354--1380，2024
+* **论文链接：** [SIAM 正式版本](https://doi.org/10.1137/23M1575792)；[arXiv 完整版本](https://arxiv.org/abs/2211.11009)
 * **选题来源：** 课程大作业论文列表中的第 6 篇 "Optimal resizable arrays"
 
