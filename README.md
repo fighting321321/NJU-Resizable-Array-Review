@@ -1,10 +1,10 @@
 # 论文评述：最优可变长数组
 
-本仓库包含对理论计算机科学论文 **"Optimal resizable arrays"**（Robert E. Tarjan 和 Uri Zwick）的阅读、分析与学术评述（Review）。该工作的初步版本发表于 SOSA 2023，完整版本于 2024 年发表于 *SIAM Journal on Computing*。本项目主要依据 arXiv 完整版本开展阅读和写作。
+本仓库包含对 **"Optimal resizable arrays"**（Robert E. Tarjan 和 Uri Zwick）的阅读、分析与学术评述（Review）。该工作的初步版本发表于 SOSA 2023，完整版本于 2024 年发表于 *SIAM Journal on Computing*。本项目主要依据 arXiv 完整版本开展阅读和写作。
 
 本项目为南京大学《高级数据结构》课程期末大作业。
 
-当前正文和过程材料已经完成最终整合：七章主体内容、图示、参考文献和总结均已写入 `src/main.tex`，成员分区标签、术语、公式记号和语言风格已经统一。技术核查、交叉审阅和 PDF 编译检查均在同一分支上完成，项目现已进入最终提交状态。
+当前正文和过程材料已经完成最终整合。项目现已基本完成。
 
 ---
 
@@ -72,5 +72,4 @@
 * **论文作者：** Robert E. Tarjan, Uri Zwick
 * **发表形式：** SOSA 2023 初步版本；*SIAM Journal on Computing*，53(5):1354--1380，2024
 * **论文链接：** [SIAM 正式版本](https://doi.org/10.1137/23M1575792)；[arXiv 完整版本](https://arxiv.org/abs/2211.11009)
-* **选题来源：** 课程大作业论文列表中的第 6 篇 "Optimal resizable arrays"
 
